@@ -1,19 +1,31 @@
 using Microsoft.EntityFrameworkCore;
-using Api2.Models;
-using Microsoft.Extensions.DependencyInjection;
+using Api2.Data;
+using Api2.Extensions;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Itemcontext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Itemcontext") ?? throw new InvalidOperationException("Connection string 'Itemcontext' not found.")));
 
+// Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ItemContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Conex to Db
+builder.Services.AddDbContext<ItemContext>(opt =>
+{
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -26,4 +38,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+ApplicationServiceExtensions.SeedDatabase(app);
 app.Run();
