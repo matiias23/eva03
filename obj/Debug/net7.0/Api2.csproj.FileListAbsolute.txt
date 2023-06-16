@@ -586,3 +586,13 @@ C:\Users\n_mat\eva03\obj\Debug\net7.0\scopedcss\bundle\Api2.styles.css
 C:\Users\n_mat\eva03\obj\Debug\net7.0\Api2.csproj.CopyComplete
 C:\Users\n_mat\eva03\obj\Debug\net7.0\Api2.genruntimeconfig.cache
 C:\Users\n_mat\eva03\obj\Debug\net7.0\ref\Api2.dll
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.csproj.AssemblyReference.cache
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.AssemblyInfoInputs.cache
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.AssemblyInfo.cs
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.csproj.CoreCompileInputs.cache
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.dll
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\refint\Api2.dll
+C:\Users\Estudiante\Desktop\eva3\obj\Debug\net7.0\Api2.pdb

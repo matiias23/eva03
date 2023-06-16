@@ -9,9 +9,8 @@ namespace Api2.Data
         {
         }
 
-
-        public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Book> Books { get; set; } = null!;
-        public DbSet<Reserve> Reserves { get; set; } = null!;
+        public DbSet<Client> Clients { get; set; } = null!;
+        public DbSet<Dish> Dishes { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
     }
 }

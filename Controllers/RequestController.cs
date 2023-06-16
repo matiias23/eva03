@@ -18,83 +18,83 @@ namespace Api2.Controllers
         }
 
         [HttpGet("1")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> FirstEndPoint()
+        public async Task<ActionResult<IEnumerable<ClientDto>>> FirstEndPoint()
         {
             var startDate = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1));
             startDate = startDate.AddDays(-1);
             var endDate = DateOnly.FromDateTime(DateTime.Today);
 
-            var userReserves = await _context.Users
-                .Include(u => u.Reserves)
-                .ThenInclude(r => r.Book)
+            var clientOrders = await _context.Clients
+                .Include(u => u.Orders)
+                .ThenInclude(r => r.Dish)
                 .ToListAsync();
 
-            var userDtos = userReserves.Select(user =>
+            var clientDtos = clientOrders.Select(user =>
             {
-                var lastMonthReserves = user.Reserves
-                    .Where(r => r.ReservedAt >= startDate && r.ReservedAt <= endDate)
+                var lastMonthReserves = client.Orders
+                    .Where(r => r.CreatedAt >= startDate && r.CreatedAt <= endDate)
                     .ToList();
 
-                var bookDtos = lastMonthReserves.Select(reserve => _mapper.Map<BookDto>(reserve.Book)).ToList();
+                var DishDtos = lastMonthReserves.Select(reserve => _mapper.Map<DishDto>(reserve.Dish)).ToList();
 
-                return new UserDto
+                return new ClientDto
                 {
-                    Name = user.Name,
-                    Faculty = user.Faculty,
-                    DateLastReserve = lastMonthReserves.OrderByDescending(r => r.ReservedAt).FirstOrDefault()?.ReservedAt,
-                    CantReservesLastMonth = lastMonthReserves.Count,
-                    Reserves = bookDtos
+                    Name = client.Name,
+                    Rut = client.Rut,
+                    TotalSumLastMonth = lastMonthReserves.Count,
+                    Orders = DishDtos
                 };
             }).ToList();
 
-            var userNamesWithReserves = userDtos.Select(ud => ud.Name).ToList();
+            var clientWithOrders = clientDtos.Select(ud => ud.Name).ToList();
 
-            var usersWithoutReserves = await _context.Users
-                .Where(u => !userNamesWithReserves.Contains(u.Name))
+            var clientWithOutOrders = await _context.Clients
+                .Where(u => !clientWithOrders.Contains(u.Name))
                 .ToListAsync();
 
-            var usersWithoutReservesDtos = usersWithoutReserves.Select(user => new UserDto
+            var clientWithOutOrdersDtos = clientWithOutOrders.Select(client => new ClientDto
             {
-                Name = user.Name,
-                Faculty = user.Faculty,
-                DateLastReserve = null,
-                CantReservesLastMonth = 0,
-                Reserves = new List<BookDto>()
+                Name = client.Name,
+                Rut = client.Rut,
+                TotalSumLastMonth = 0,
+                Orders = new List<DishDto>()
             }).ToList();
 
-            userDtos.AddRange(usersWithoutReservesDtos);
+            userDtos.AddRange(clientWithOutOrdersDtos);
 
-            return Ok(userDtos);
+            return Ok(clientDtos);
         }
 
         [HttpGet("2")]
-        public async Task<ActionResult<IEnumerable<BookReserveDto>>> SecondEndPoint()
+        public async Task<ActionResult<IEnumerable<DishOrderDto>>> SecondEndPoint()
         {
-            var books = await _context.Books
-                .Include(b => b.Reserves)
-                .ThenInclude(r => r.User)
+            var didshes = await _context.Dishes
+                .Include(b => b.Orders)
+                .ThenInclude(r => r.Client)
                 .ToListAsync();
 
-            var bookReserveDtos = books.Select(book =>
+            var DishOrderDto = dishes.Select(dish =>
             {
-                var usersReserveBookDtos = book.Reserves.Select(reserve => new UsersReserveBookDto
+                var clientReservesOrdersDto = dish.Orders.Select(reserve => new ClienOrderDish
                 {
-                    Id = reserve.User.Id,
-                    Name = reserve.User.Name,
-                    Faculty = reserve.User.Faculty
+                    Id = order.Client.Id,
+                    Name = order.Client.Name,
+                    Faculty = order.Client.Faculty
                 }).ToList();
 
-                return new BookReserveDto
+                return new DishOrderDto
                 {
-                    Title = book.Title,
-                    Description = book.Description,
-                    Users = usersReserveBookDtos
+                    Name = dish.Name,
+                    Price = dish.Price,
+                    Clients = clientReservesOrdersDto
                 };
             }).ToList();
 
-            return Ok(bookReserveDtos);
+            return Ok(DishOrderDto);
         }
 
-    }
+
+}
+
 }
     

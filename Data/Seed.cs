@@ -12,69 +12,69 @@ namespace Api2.Data
 
         private static void InternalSeed(ItemContext context)
         {
-            if (context.Users.Any()) return;
+            if (context.Clients.Any()) return;
 
-            var users = new List<User>{
-                new User(){
-                    Code = "001",
-                    Name = "Nombre1",
-                    Faculty = "Facultad1",
+            var clients = new List<Client>{
+                new Client(){
+                    Name = "Cliente1",
+                    Rut = "103458453",
+                    TotalSumLastMonth = 3,
                 },
-                new User(){
-                    Code = "002",
-                    Name = "Nombre2",
-                    Faculty = "Facultad2",
+                new Client(){
+                    Name = "Cliente2",
+                    Rut = "134558453",
+                    TotalSumLastMonth = 5,
                 }
             };
 
-            context.Users.AddRange(users);
+            context.Clients.AddRange(clients);
             context.SaveChanges();
 
-            var books = new List<Book>{
-                new Book(){
-                    Code = "001",
-                    Title = "Libro1",
-                    Description = "Descripcion1",
+            var dishes = new List<Dish>{
+                new Dish(){
+                    Id = 1,
+                    Name = "Plato1",
+                    Price = 5000,
                 },
-                new Book(){
-                    Code = "002",
-                    Title = "Libro2",
-                    Description = "Descripcion2",
+                new Dish(){
+                    Id = 2,
+                    Name = "Plato2",
+                    Price = 3000,
                 },
-                new Book(){
-                    Code = "003",
-                    Title = "Libro3",
-                    Description = "Descripcion3",
+                new Dish(){
+                    Id = 3,
+                    Name = "Plato3",
+                    Price = 10000,
                 },
-                new Book(){
-                    Code = "004",
-                    Title = "Libro4",
-                    Description = "Descripcion",
+                new Dish(){
+                    Id = 4,
+                    Name = "Plato4",
+                    Price = 150000,
                 },
             };
 
-            context.Books.AddRange(books);
+            context.Dishes.AddRange(dishes);
             context.SaveChanges();
 
-            var reserves = new List<Reserve>{
-                new Reserve(){
-                    ReservedAt = DateOnly.FromDateTime(DateTime.Now),
-                    UserId = 1,
-                    BookId = 1,
+            var orders = new List<Order>{
+                new Order(){
+                    Id = 1,
+                    ClientId = 1,
+                    DishId = 1,
                 },
-                new Reserve(){
-                    ReservedAt = DateOnly.FromDateTime(DateTime.Now),
-                    UserId = 1,
-                    BookId = 4,
+                new Order(){
+                    Id = 2,
+                    ClientId = 1,
+                    DishId = 2,
                 },
-                new Reserve(){
-                    ReservedAt = DateOnly.FromDateTime(DateTime.Now),
-                    UserId = 2,
-                    BookId = 2,
+                new Order(){
+                    Id = 3,
+                    ClientId = 2,
+                    DishId = 4,
                 },
             };
 
-            context.Reserves.AddRange(reserves);
+            context.Orders.AddRange(orders);
             context.SaveChanges();
         }
     }

@@ -8,14 +8,13 @@ namespace Api2.RequestHelper
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>()
-                .ForMember(dest => dest.CantReservesLastMonth, opt => opt.Ignore())
-                .ForMember(dest => dest.DateLastReserve, opt => opt.Ignore())
-                .ForMember(dest => dest.Reserves, opt => opt.MapFrom(src => src.Reserves));
+            CreateMap<Client, ClientDto>()
+                .ForMember(dest => dest.TotalSumLastMonth, opt => opt.Ignore())
+                .ForMember(dest => dest.Orders, opt => opt.MapFrom(src => src.Orders));
 
-            CreateMap<Reserve, BookDto>();
+            CreateMap<Order, DishDto>();
 
-            CreateMap<Book, BookDto>();
+            CreateMap<Dish, DishDto>();
         }
     }
 }
